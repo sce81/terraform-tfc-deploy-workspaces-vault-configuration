@@ -1,10 +1,10 @@
 terraform {
   cloud {
-    organization = "HashiCorp_TFC_Automation_Demo"
+    organization = "HashiCorp_AWS_Org"
 
     workspaces {
       name    = "deploy-workspaces-vault-namespaces"
-      project = "Workspace_Management"
+      project = "workspace-management-vault"
     }
   }
   required_providers {
