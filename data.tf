@@ -1,5 +1,5 @@
 data "tfe_project" "main" {
-  name         = "vault-configuration"
+  name         = "vault-admin"
   organization = var.organization
 }
 
@@ -7,45 +7,57 @@ data "tfe_organization" "main" {
   name = var.organization
 }
 
-data "tfe_github_app_installation" "github" {
-  installation_id = var.github_installation_id
-}
 locals {
 
   vault_configuration_repo = [
     {
-      identifier                 = "sce81/terraform-tfe-vault-namespaces-root-module"
-      github_app_installation_id = data.tfe_github_app_installation.github.id
-      branch                     = "main"
+      identifier     = "sce81/terraform-tfe-vault-namespaces-root-module"
+      oauth_token_id = var.oauth_token_id
+      branch = "main"
     }
   ]
 
   workspace_vars = {
     vault_namespace_vars = {
-      "test1" = {
+      "onetech" = {
         "namespace" = {
-          value       = "namespace1"
+          value       = "onetech"
           description = "namespace name"
           category    = "terraform"
         },
         "child_namespaces" = {
-          value       = join(", ", ["dev", "staging", "production"])
+          value = join(", ", ["production",
+          "non-production"])
           description = "namespace name"
           category    = "terraform"
         },
       },
-      "test2" = {
+      "vault-configuration" = {
         "namespace" = {
-          value       = "namespace2"
+          value       = "vault-configuration"
           description = "namespace name"
           category    = "terraform"
         },
         "child_namespaces" = {
-          value       = join(", ", ["dev", "staging", "testing", "production"])
+          value = join(", ", ["production",
+          "non-production"])
           description = "namespace name"
           category    = "terraform"
         },
       },
-    },
+      "cloud-security" = {
+        "namespace" = {
+          value       = "cloud-security"
+          description = "namespace name"
+          category    = "terraform"
+        },
+        "child_namespaces" = {
+          value = join(", ", ["production",
+          "non-production"])
+          description = "namespace name"
+          category    = "terraform"
+        },
+      },
+    }
   }
 }

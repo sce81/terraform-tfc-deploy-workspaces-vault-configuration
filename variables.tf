@@ -1,7 +1,7 @@
 variable "organization" {
-  default     = "HashiCorp_TFC_Automation_Demo"
+  default     = "HashiCorp_AWS_Org"
   type        = string
-  description = "workspace to deploy to"
+  description = "Organisation to deploy to"
 }
 
 variable "github_installation_id" {
@@ -20,4 +20,10 @@ variable "sentinel_policies" {
   type        = list(string)
   description = "Additional Sentinel Policies to be added to environment"
   default     = []
+}
+
+variable "oauth_token_id" {
+  type        = string
+  description = "VCS installation ID to access repo"
+  default     = null
 }
